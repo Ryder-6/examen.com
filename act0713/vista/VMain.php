@@ -2,7 +2,6 @@
 
 namespace act0713\vista;
 
-use act0713\orm\entidad\Articulo;
 
 class VMain extends Vista
 {
@@ -26,18 +25,17 @@ class VMain extends Vista
         </fieldset>
         <button type="submit" name="operacion" id="operacion" value="login"> iniciar sesion</button>
       </form>
-
     <?php
     } else {
       $cliente = $datos['log'];
     ?>
-      <h2><?= $cliente['nombre'] ?></h2>
-      <h2><?= $cliente['apellidos'] ?></h2>
+      <h2><?= $cliente->nombre ?></h2>
+      <h2><?= $cliente->apellidos ?></h2>
 
 
-      <form action="/logout" method="post">
 
-        <button type="submit" name="operacion" id="operacion" value="logout"> cerrar sesion</button>
+      <form action="/logout" method="GET">
+        <button type="submit" name="operacion" value="logout">Cerrar sesión</button>
       </form>
 
     <?php
@@ -45,25 +43,25 @@ class VMain extends Vista
     }
     ?>
 
-<hr>
+    <hr>
 
-<h2>Articulos con un Descuento o mas <?= $datos['descuento'] * 100 ?>%</h2>
-<table border="1">
-  <tr>
-    <th>Descripción</th>
-    <th>PVP</th>
-    <th>Descuento</th>
-  </tr>
-  <?php foreach ($datos['enOferta'] as $articulo) : 
-  $dto = $articulo->dto_venta * 100;
-    ?>
-    <tr>
-      <td><a href="/articulos/<?= $articulo->referencia ?>"><?= $articulo->descripcion ?></a></td>
-      <td><?= number_format($articulo->pvp, 2) ?> €</td>
-      <td><?= $dto ?>%</td>
-    </tr>
-  <?php endforeach ?>
-</table>
+    <h2>Articulos con un Descuento o mas <?= $datos['descuento'] * 100 ?>%</h2>
+    <table border="1">
+      <tr>
+        <th>Descripción</th>
+        <th>PVP</th>
+        <th>Descuento</th>
+      </tr>
+      <?php foreach ($datos['enOferta'] as $articulo) :
+        $dto = $articulo->dto_venta * 100;
+      ?>
+        <tr>
+          <td><a href="/articulos/<?= $articulo->referencia ?>"><?= $articulo->descripcion ?></a></td>
+          <td><?= number_format($articulo->pvp, 2) ?> €</td>
+          <td><?= $dto ?>%</td>
+        </tr>
+      <?php endforeach ?>
+    </table>
 
 
 <?php
