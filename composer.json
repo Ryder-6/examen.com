@@ -1,0 +1,23 @@
+{
+    "name": "usuario/examen.com",
+    "autoload": {
+        "psr-4": {
+            "ra5\\": "ra5",
+            "ra6\\": "ra6",
+            "EN\\": "ra6/poo/EN",
+            "ra6p\\": "ra6p",
+            "ra5p\\": "ra5p",
+            "ra7p\\": "ra7p",
+            "act0713\\": "act0713"
+        }
+    },
+    "authors": [
+        {
+            "name": "Usuario",
+            "email": "usuario@loquesea.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "3.10.*"
+    }
+}
