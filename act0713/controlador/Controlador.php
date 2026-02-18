@@ -44,8 +44,8 @@ class Controlador
       if ($claseModelo !== null && !class_exists(self::NS_MODELOS . $claseModelo)) {
         throw new ErrorAplicacion("la clase modelo $claseModelo no existe", 3, ['url' => "/", 'texto' =>  "Ir al inicio"]);
       }
-      if ($claseVista !== null && !class_exists(self::NS_VISTAS . $claseModelo)) {
-        throw new ErrorAplicacion("la clase Vista $claseModelo no existe", 4, ['url' => "/",  'texto' => "Ir al inicio"]);
+      if ($claseVista !== null && !class_exists(self::NS_VISTAS . $claseVista)) {
+        throw new ErrorAplicacion("la clase Vista $claseVista no existe", 4, ['url' => "/",  'texto' => "Ir al inicio"]);
       }
 
       if ($claseModelo) {
