@@ -18,6 +18,8 @@ class Controlador
   public function __construct()
   {
     $this->peticiones = [
+      //en mi configuracion de apache me apunta a /index.php con el phpinfo
+      // no estoy seguro de saber como apuntar al index de /act0713/index.php
       new Peticion("GET", "#^/$#", "MMain", "VMain", false),
     ];
     $this->despachaPeticion();
