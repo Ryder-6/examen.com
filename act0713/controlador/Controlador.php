@@ -19,7 +19,7 @@ class Controlador
   {
     $this->peticiones = [
       //en mi configuracion de apache me apunta a /index.php con el phpinfo
-      // no estoy seguro de saber como apuntar al index de /act0713/index.php
+      // no estoy seguro de saber como apuntar al index de /act0713/index.php para inicar el programa de la actividad
       new Peticion("GET", "#^/$#", "MMain", "VMain", false),
     ];
     $this->despachaPeticion();
