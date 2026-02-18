@@ -66,8 +66,6 @@ abstract class Entidad implements JsonSerializable
         break;
       default:
         throw new \TypeError("El tipo de datos de $value en la propiedad $propiedad no es correcto", 1);
-
-        break;
     }
 
     return $v;

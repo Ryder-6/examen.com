@@ -1,6 +1,4 @@
 <?php
-
-
 namespace act0713\orm;
 
 class BDFactory {

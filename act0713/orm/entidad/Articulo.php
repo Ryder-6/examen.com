@@ -25,7 +25,7 @@ class Articulo extends Entidad {
       'und_disponibles' => 'int',
       'fecha_disponible' => \DateTime::class,
       'categoria' => 'string',
-      'tipo_via' => 'string'
+      'tipo_iva' => 'string'
     ];
   }
 }

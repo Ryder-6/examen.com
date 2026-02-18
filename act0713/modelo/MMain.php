@@ -1,11 +1,11 @@
 <?php
-namespace act0713\orm\modelo;
+namespace act0713\modelo;
 
 use act0713\orm\modelo\ORMArticulo;
 use act0713\orm\BDFactory;
 use act0713\seguridad\Auth;
 
-const DESCUENTO = 0.25;
+const DESCUENTO = 0.02;
 
 class MMain implements Modelo {
   public function procesaPeticion(array $param): mixed
