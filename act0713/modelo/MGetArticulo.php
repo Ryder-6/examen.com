@@ -24,8 +24,8 @@ class MGetArticulo implements Modelo
 
     if (Auth::check()) {
       $cliente = Auth::cliente();
-    }else{
-      $cliente = null;    
+    } else {
+      $cliente = null;
     }
 
     return [

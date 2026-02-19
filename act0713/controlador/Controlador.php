@@ -22,6 +22,7 @@ class Controlador
       new Peticion("POST", "#^/login$#", "MLogin", "VLogin", false),
       new Peticion("GET", "#^/logout$#", "MLogout", null, true),
       new Peticion("GET", "#^/articulos/(\w+)$#", "MGetArticulo", "VGetArticulo" ),
+      new Peticion("GET", "#^/resena/new$#", "MGetReseña", "VGetReseña")
     ];
     $this->despachaPeticion();
   }
