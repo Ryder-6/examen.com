@@ -43,23 +43,24 @@ abstract class ORMBase
     return $fila ? new $clase($fila) : null;
   }
 
-  public function insert(Entidad $fila) : bool {
+
+    public function insert(Entidad $fila): bool {
     $propiedades = $fila->toArray();
     $columnas = array_keys($propiedades);
+
     $columnasSinÑ = array_map(fn($c) => str_replace("ñ", "n", $c), $columnas);
 
     $sql = "INSERT INTO {$this->tabla} ";
     $sql.= "(" . implode(", ", $columnas) . ") ";
-    $sql.= "VALUES (:". implode(", ", $columnasSinÑ) . ")";
+    $sql.= "VALUES (:" . implode(", :",$columnasSinÑ) . ")";
+    
 
     $stmt = $this->cbd->prepare($sql);
-
-    foreach ($propiedades as $columna => $value) {
-      $columnasSinÑ = str_replace("ñ","n", $columna);
-      $stmt->bindValue(":$columnasSinÑ", $value);
+    foreach( $propiedades as $columna => $valor ) {
+      $columnaSinÑ = str_replace("ñ","n",$columna);
+      $stmt->bindValue(":$columnaSinÑ", $valor);
     }
     return $stmt->execute();
-
   }
 
   public function update(mixed $id, Entidad $fila) : bool {

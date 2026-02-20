@@ -77,7 +77,7 @@ class ORMArticulo extends ORMBase
   public function haComprado(string $nif, string $referencia) : bool  {
     $sql = <<<SQL
       SELECT nif, referencia 
-      FROM pedida
+      FROM pedido
       INNER JOIN lpedido USING(npedido)
       WHERE nif = :nif AND referencia = :referencia
     SQL;
@@ -88,7 +88,7 @@ class ORMArticulo extends ORMBase
     $stmt->execute();
     $filas = count($stmt->fetchAll());
 
-    return $filas >0;
+    return $filas > 0;
   }
 
 

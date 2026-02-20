@@ -45,7 +45,7 @@ class VLogin extends Vista
               <td><?= $articulo['unidades'] ?></td>
               <td><?= number_format($articulo['dto'], 2) ?>%</td>
               <td>
-                <form action="/reseñas/<?= $cliente->nif ?>/<?= $articulo['referencia'] ?>/new" method="get" style="display:inline;">
+                <form action="/resenas/<?= $cliente->nif ?>/<?= $articulo['referencia'] ?>/new" method="get" style="display:inline;">
                   <button type="submit">Añadir reseña</button>
                 </form>
               </td>

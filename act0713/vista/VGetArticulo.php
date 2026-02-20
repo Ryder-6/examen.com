@@ -7,14 +7,14 @@ class VGetArticulo extends Vista
   public function salida(mixed $datos): void
   {
     ob_start();
-    $this->inicioHtml('Articulo encontrado', ['/estilos/general.css']);
+    $this->inicioHtml('Articulo encontrado', ['/estilos/general.css', '/estilos/formulario.css']);
 
     $cliente = $datos['cliente'] ?? null;
     $articulo = $datos['articulo'] ?? null;
 
     if ($cliente) {
 ?>
-      <h2>Bienvenido, <?= htmlspecialchars($cliente->nombre, ENT_QUOTES) ?> <?= htmlspecialchars($cliente->apellidos, ENT_QUOTES) ?></h2>
+      <h2>Bienvenido, <?= $cliente->nombre ?> <?= $cliente->apellidos ?></h2>
       <form action="/logout" method="get">
         <button type="submit" name="operacion" value="logout">Cerrar sesión</button>
       </form>
@@ -73,7 +73,7 @@ class VGetArticulo extends Vista
 
     <?php if ($cliente) : ?>
       <p>
-        <a href="/reseñas/<?= $cliente->nif ?>/<?= $articulo->referencia ?>/new">Añadir reseña</a>
+        <a href="/resenas/<?= $cliente->nif ?>/<?= $articulo->referencia ?>/new">Añadir reseña</a>
       </p>
     <?php endif; ?>
 
