@@ -65,7 +65,7 @@ abstract class ORMBase
     return $stmt->execute();
   }
 
-  public function update(mixed $id, Entidad $fila) : bool {
+  public function update(mixed $id, mixed $fila) : bool {
     $propiedades = $fila->toArray();
     $sql = "UPDATE {$this->tabla} ";
     $columnas = array_map(fn($columna):string => "$columna = :$columna", array_keys($propiedades));
