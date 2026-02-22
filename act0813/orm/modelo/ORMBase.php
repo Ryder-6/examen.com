@@ -44,58 +44,60 @@ abstract class ORMBase
     return $fila ? new $clase($fila) : null;
   }
 
-  
 
-    public function insert(Entidad $fila): bool {
-    $propiedades = $fila->toArray();
+
+  public function insert(Entidad | array $fila): bool
+  {
+    $propiedades = $fila instanceof Entidad ? $fila->toArray() : $fila;
     $columnas = array_keys($propiedades);
 
     $columnasSinÑ = array_map(fn($c) => str_replace("ñ", "n", $c), $columnas);
 
     $sql = "INSERT INTO {$this->tabla} ";
-    $sql.= "(" . implode(", ", $columnas) . ") ";
-    $sql.= "VALUES (:" . implode(", :",$columnasSinÑ) . ")";
-    
+    $sql .= "(" . implode(", ", $columnas) . ") ";
+    $sql .= "VALUES (:" . implode(", :", $columnasSinÑ) . ")";
+
 
     $stmt = $this->cbd->prepare($sql);
-    foreach( $propiedades as $columna => $valor ) {
-      $columnaSinÑ = str_replace("ñ","n",$columna);
+    foreach ($propiedades as $columna => $valor) {
+      $columnaSinÑ = str_replace("ñ", "n", $columna);
       $stmt->bindValue(":$columnaSinÑ", $valor);
     }
     return $stmt->execute();
   }
 
-  public function update(mixed $id, mixed $fila) : bool {
-    $propiedades = $fila->toArray();
-    $sql = "UPDATE {$this->tabla} ";
-    $columnas = array_map(fn($columna):string => "$columna = :$columna", array_keys($propiedades));
+  public function update(mixed $id, Entidad | array $fila): bool
+  {
 
-    $sql.= "SET " . implode(", ", $columnas);
+    $propiedades = $fila instanceof Entidad ? $fila->toArray() : $fila;
+    $sql = "UPDATE {$this->tabla} ";
+    $columnas = array_map(
+      fn($columna): string => "$columna = :$columna",
+      array_keys($propiedades)
+    );
+
+    $sql .= "SET " . implode(", ", $columnas);
+
+    $sql .= " WHERE {$this->clavePrimaria} = :pk_{$this->clavePrimaria}";
 
     $stmt = $this->cbd->prepare($sql);
-    
-    foreach ($propiedades as $columna => $value) {
-      $stmt->bindValue(":$columna", $value);
-    }
 
+    foreach ($propiedades as $columna => $valor) {
+      $stmt->bindValue(":$columna", $valor);
+    }
     $stmt->bindValue("pk_{$this->clavePrimaria}", $id);
+
     return $stmt->execute();
   }
 
-  public function delete(mixed $id) : bool {
+
+  public function delete(mixed $id): bool
+  {
     $sql = "DELETE FROM {$this->tabla} ";
-    $sql.= "WHERE {$this->clavePrimaria} = :id";
+    $sql .= "WHERE {$this->clavePrimaria} = :id";
 
     $stmt = $this->cbd->prepare($sql);
     $stmt->bindValue(":id", $id);
     return $stmt->execute();
   }
-
-
-
-
-
-
-
-
 }

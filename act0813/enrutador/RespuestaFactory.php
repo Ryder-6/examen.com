@@ -6,16 +6,19 @@ use act0813\error\ErrorServicio;
 
 
 
-class RespuestaFactory {
+class RespuestaFactory
+{
 
-  private static function enviarJSON(array $resultado): void {
+  private static function enviarJSON(array $resultado): void
+  {
     http_response_code($resultado['codigo']);
     header("Content-type: application/json; charset=utf-8");
     echo json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     exit;
   }
 
-  public static function ok(mixed $datos): void {
+  public static function ok(mixed $datos): void
+  {
     $resultado = [
       'exito' => true,
       'datos' => $datos,
@@ -26,7 +29,8 @@ class RespuestaFactory {
     self::enviarJSON($resultado);
   }
 
-  public static function created(mixed $datos): void {
+  public static function created(mixed $datos): void
+  {
     $resultado = [
       'exito' => true,
       'datos' => $datos,
@@ -37,12 +41,15 @@ class RespuestaFactory {
     self::enviarJSON($resultado);
   }
 
-  public static function noContent(): void {
+  public static function noContent(): void
+  {
     http_response_code(204);
     exit;
   }
 
-  public static function error(ErrorServicio $es): void {
+  public static function error(ErrorServicio $es): void
+  {
+
     $resultado = [
       'exito' => false,
       'datos' => null,
@@ -53,6 +60,4 @@ class RespuestaFactory {
 
     self::enviarJSON($resultado);
   }
-
 }
-?>
