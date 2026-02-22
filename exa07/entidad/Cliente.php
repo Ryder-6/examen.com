@@ -34,7 +34,7 @@ class Cliente implements JsonSerializable{
         case 'email':
           $this->$propiedad = $value;
           break;
-        case 'float':
+        case 'ventas':
           $this->$propiedad = floatval($value);
           break;
         
