@@ -36,39 +36,39 @@ class Enrutador
     }
   }
 
-  private function procPeticion() {
+  private function procPeticion()
+  {
     try {
-    $claseModelo = $this->ruta['modelo'];
-    $metodo = $this->ruta['metodo'];
+      $claseModelo = $this->ruta['modelo'];
+      $metodo = $this->ruta['metodo'];
 
-    if (!class_exists($claseModelo) || !method_exists($claseModelo, $metodo)) {
+      if (!class_exists($claseModelo) || !method_exists($claseModelo, $metodo)) {
         throw new \Exception("Clase o peticion no existen", 404);
-    }
+      }
 
-    $modelo = new $claseModelo();
-    $datos = call_user_func_array([$modelo,$metodo], []);
+      $modelo = new $claseModelo();
+      $datos = call_user_func_array([$modelo, $metodo], []);
 
-    $this->enviaRespuesta($datos);
-
+      $this->enviaRespuesta($datos);
     } catch (\Exception $e) {
       $this->enviaError($e);
-    }
-    catch (\PDOException $e){
+    } catch (\PDOException $e) {
       $error = $e->getCode();
       switch ($error) {
         case '2300':
-            $this->enviaError(new \Exception($e->getMessage(), 409));
+          $this->enviaError(new \Exception($e->getMessage(), 409));
           break;
-        
+
         default:
-            $this->enviaError(new \Exception($e->getMessage(), 500));
+          $this->enviaError(new \Exception($e->getMessage(), 500));
 
           break;
-      }   
+      }
     }
   }
 
-  private function enviaRespuesta($datos) {
+  private function enviaRespuesta($datos)
+  {
     $resultado['error'] = null;
     $resultado['datos'] = $datos ?? [];
 
@@ -79,7 +79,8 @@ class Enrutador
     exit;
   }
 
-  private function enviaError(\Exception $e) {
+  private function enviaError(\Exception $e)
+  {
     $resultado['error'] = $e->getMessage();
     $resultado['datos'] = null;
 
@@ -89,5 +90,4 @@ class Enrutador
     echo json_encode($resultado);
     exit;
   }
-
 }
